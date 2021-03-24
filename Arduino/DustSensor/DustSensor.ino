@@ -24,10 +24,8 @@ void loop() {
   {
     ratio = lowpulseoccupancy/(sampletime_ms*10.0);  
     concentration = (1.1*pow(ratio,3)-3.8*pow(ratio,2)+520*ratio+0.62)* m3; 
-//    Serial.print("Concentration = ");
-    Serial.print(concentration);
-    Serial.println(" \t ug/m^3"); //micro gram per kubic metre
-    Serial.println("\n");
+    String measurement = (String(concentration) + " \t ug/m^3");  //micro gram per kubic metre
+    Serial.println(measurement);
     lowpulseoccupancy = 0;
     starttime = millis();
 
