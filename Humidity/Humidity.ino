@@ -12,7 +12,7 @@ hd44780_I2Cexp lcd;
 const int LCD_COLS = 16;
 const int LCD_ROWS = 2;
 int verstuur = 29;
-//eens per minuut op het moment (doel, 10 minuten)
+//eens per minuut op het moment (doel, 10 minuten, voor weergave tijdens presentatie op 1 minuut laten staan. anders is het niet te laten zien)
 
 void setup() {
   // put your setup code here, to run once:
@@ -29,10 +29,12 @@ void loop() {
   lcd.setCursor(0, 0);
   lcd.print("Humidity: " + String(hum) + "%");
 
+  //leeghalen van tweede lijn op LCD display om status weer te geven uit IF statement
   lcd.setCursor(0, 1);
   lcd.print ("                ");
   lcd.setCursor(0, 1);
 
+  //weergave van status per verschillende hoogten in luchtvochtigheid
   if(hum >= 60){
     lcd.print("It's too high!");
     
@@ -51,6 +53,7 @@ void loop() {
   
   verstuur += 1;
 
+  //eens per minuut nu verzenden van informatie naar de database
   if(verstuur == 30){
     Serial.println(hum);
     verstuur = 0;
